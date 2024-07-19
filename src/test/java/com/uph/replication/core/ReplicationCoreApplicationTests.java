@@ -1,4 +1,4 @@
-package com.uph.replication.core.replication_core;
+package com.uph.replication.core;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

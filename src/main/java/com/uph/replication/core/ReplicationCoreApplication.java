@@ -1,4 +1,4 @@
-package com.uph.replication.core.replication_core;
+package com.uph.replication.core;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
