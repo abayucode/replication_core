@@ -1,0 +1,26 @@
+version: '3'
+
+services:
+  app:
+    image: 'replication-core:latest'
+    build:
+      context: .
+    container_name: replication-core
+    depends_on:
+      - database
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://database:5432/replication_core_db
+      - SPRING_DATASOURCE_USERNAME=postgres
+      - SPRING_DATASOURCE_PASSWORD=12345
+      - SPRING_JPA_HIBERNATE_DDL_AUTO=update
+      - SPRING_JPA_HIBERNATE_SHOW_SQL=true
+    ports:
+      - "2024:2024"
+    restart: on-failure
+
+  database:
+    image: 'postgres'
+    container_name: postgresql_core
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=12345
