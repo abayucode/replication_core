@@ -21,4 +21,7 @@ public class ProductsByCategories {
     @ManyToOne
     @JoinColumn(name = EntityConstants.CATEGORY_PRODUCT_ID)
     private MasterCategoryProducts categoryProducts;
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = EntityConstants.PRODUCT_BY_CATEGORIES, cascade = CascadeType.ALL)
+    private List<SetProductsStore> setProductsStores;
 }
