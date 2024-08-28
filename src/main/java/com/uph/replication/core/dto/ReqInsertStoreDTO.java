@@ -9,4 +9,7 @@ public class ReqInsertStoreDTO {
     private String storeAddress;
     private StoreEnums storeIsActive;
     private String storeCode;
+    private String storeCategory;
+    private String latitude;
+    private String longitude;
 }

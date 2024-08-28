@@ -21,6 +21,8 @@ public class MasterStores {
     private String storeAddress;
     private StoreEnums storeIsActive;
     private String storeCode;
+    private String latitude;
+    private String longitude;
     private Date createdAt;
     private Date deletedAt;
     private Date updatedAt;
