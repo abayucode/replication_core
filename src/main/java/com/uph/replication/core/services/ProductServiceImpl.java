@@ -4,11 +4,14 @@ import com.uph.replication.core.dto.ReqInsertProductDTO;
 import com.uph.replication.core.dto.responses.ApiResult;
 import com.uph.replication.core.entities.MasterCategoryProducts;
 import com.uph.replication.core.entities.MasterProducts;
+import com.uph.replication.core.enums.ApiResultEnums;
 import com.uph.replication.core.repositories.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 @Service
 public class ProductServiceImpl implements ProductService {
@@ -22,7 +25,10 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public ApiResult<Object> insertNewProduct(ReqInsertProductDTO reqInsertProductDTO) {
         MasterProducts masterProducts = new MasterProducts();
-        MasterCategoryProducts categoryProduct = categoryProductService.getCategoryProductByProductName(reqInsertProductDTO.getProductCode());
+
+        if (!categoryProductService.isCategoryProductExist(reqInsertProductDTO.getProductCategory())) {
+            return new ApiResult<>(ApiResultEnums.CATEGORY_PRODUCT_IS_NOT_FOUND, null);
+        }
 
         masterProducts.setProductName(reqInsertProductDTO.getProductName());
         masterProducts.setProductCode(reqInsertProductDTO.getProductCode());
@@ -34,6 +40,9 @@ public class ProductServiceImpl implements ProductService {
 
         productRepository.save(masterProducts);
 
-        return null;
+        Map<String, String> response = new HashMap<>();
+        response.put("productId", masterProducts.getId());
+
+        return new ApiResult<>(ApiResultEnums.PRODUCT_SUCCESS_ADDED, response);
     }
 }
