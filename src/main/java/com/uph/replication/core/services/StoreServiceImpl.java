@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.Date;
 import java.util.HashMap;
+import java.util.Map;
 
 @Service
 public class StoreServiceImpl implements StoreService {
@@ -29,6 +30,11 @@ public class StoreServiceImpl implements StoreService {
 
         MasterCategoryStore categoryStore = categoryStoreService.getByName(reqInsertStoreDTO.getStoreCategory());
         MasterStores masterStores = new MasterStores();
+        Map<String, String > response = new HashMap<>();
+
+        if (isStoreExist(reqInsertStoreDTO.getStoreCode())) {
+            return new ApiResult<>(ApiResultEnums.ERROR, "Store already exists");
+        }
 
         if (null != categoryStore) {
             masterStores.setStoreName(reqInsertStoreDTO.getStoreName());
@@ -42,9 +48,16 @@ public class StoreServiceImpl implements StoreService {
             storeRepository.save(masterStores);
             storeByCategoryService.insert(categoryStore, masterStores);
 
+            response.put("storeId", masterStores.getId());
+
         } else {
             return new ApiResult<>(ApiResultEnums.STORE_ADDED_FAILED, null);
         }
-        return new ApiResult<>(ApiResultEnums.STORE_ADDED_SUCCESS, new HashMap<>().put("storeId", masterStores.getId()));
+        return new ApiResult<>(ApiResultEnums.STORE_ADDED_SUCCESS, response);
+    }
+
+    @Override
+    public Boolean isStoreExist(String storeCode) {
+        return storeRepository.findMasterStoresByStoreCode(storeCode).isPresent();
     }
 }

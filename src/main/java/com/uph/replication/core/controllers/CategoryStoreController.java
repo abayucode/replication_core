@@ -2,6 +2,7 @@ package com.uph.replication.core.controllers;
 
 import com.uph.replication.core.constants.APIConstants;
 import com.uph.replication.core.dto.ReqInsertCategoryStoreDTO;
+import com.uph.replication.core.dto.responses.ApiResult;
 import com.uph.replication.core.services.CategoryStoreService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -17,7 +18,7 @@ public class CategoryStoreController {
     CategoryStoreService categoryStoreService;
 
     @PostMapping("category")
-    public String insertNewCategoryStore(@RequestBody  ReqInsertCategoryStoreDTO dto) {
+    public ApiResult<Object> insertNewCategoryStore(@RequestBody  ReqInsertCategoryStoreDTO dto) {
         return categoryStoreService.insertCategory(dto);
     }
 

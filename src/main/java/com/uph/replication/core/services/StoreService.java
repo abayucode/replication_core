@@ -6,5 +6,6 @@ import com.uph.replication.core.dto.responses.ApiResult;
 public interface StoreService {
 
     ApiResult<Object> insertNewStore(ReqInsertStoreDTO reqInsertStoreDTO);
+    Boolean isStoreExist(String storeCode);
 
 }

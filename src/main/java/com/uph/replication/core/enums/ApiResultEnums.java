@@ -9,7 +9,9 @@ public enum ApiResultEnums {
     SUCCESS("Successfully", String.valueOf(HttpStatus.OK.value())),
     ERROR("Failed", String.valueOf(HttpStatus.NOT_FOUND.value())),
     STORE_ADDED_SUCCESS("Store added successfully", String.valueOf(HttpStatus.OK.value())),
-    STORE_ADDED_FAILED("Category of store not found", String.valueOf(HttpStatus.NOT_FOUND.value()));
+    STORE_ADDED_FAILED("Category of store not found", String.valueOf(HttpStatus.NOT_FOUND.value())),
+
+    STORE_CATEGORY_ADDED_SUCCESS("Category of store added successfully", String.valueOf(HttpStatus.OK.value()));
 
     private String message;
     private String httpRes;
