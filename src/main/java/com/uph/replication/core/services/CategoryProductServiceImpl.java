@@ -9,9 +9,7 @@ import com.uph.replication.core.repositories.CategoryProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 @Service
 public class CategoryProductServiceImpl implements CategoryProductService {
@@ -23,7 +21,7 @@ public class CategoryProductServiceImpl implements CategoryProductService {
     public ApiResult<Object> insertNewCategoryProducts(ReqInsertCategoryProduct request) {
         MasterCategoryProducts masterCategoryProducts = new MasterCategoryProducts();
 
-        if (isCategoryProductExist(request.getCategoryName())) {
+        if (!isCategoryProductExist(request.getCategoryName())) {
             return new ApiResult<>(ApiResultEnums.CATEGORY_PRODUCT_ALREADY_EXIST, null);
         }
 
@@ -42,6 +40,12 @@ public class CategoryProductServiceImpl implements CategoryProductService {
 
     @Override
     public Boolean isCategoryProductExist(String categoryName) {
-        return categoryProductRepository.findMasterCategoryProductsByCategoryName(categoryName).isPresent();
+        MasterCategoryProducts categoryProducts = categoryProductRepository.findMasterCategoryProductsByCategoryName(categoryName);
+        return null == categoryProducts;
+    }
+
+    @Override
+    public MasterCategoryProducts findByCategoryName(String categoryName) {
+        return categoryProductRepository.findMasterCategoryProductsByCategoryName(categoryName);
     }
 }

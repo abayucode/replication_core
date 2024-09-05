@@ -4,6 +4,7 @@ import com.uph.replication.core.constants.EntityConstants;
 import jakarta.persistence.*;
 import lombok.Data;
 
+import java.util.Date;
 import java.util.List;
 
 @Data
@@ -11,7 +12,7 @@ import java.util.List;
 public class ProductsByCategories {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.UUID)
     private String id;
 
     @ManyToOne

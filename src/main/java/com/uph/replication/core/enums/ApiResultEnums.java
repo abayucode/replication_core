@@ -17,7 +17,8 @@ public enum ApiResultEnums {
     CATEGORY_PRODUCT_ALREADY_EXIST("Category of product is already exist", String.valueOf(HttpStatus.FORBIDDEN.value())),
     CATEGORY_PRODUCT_IS_NOT_FOUND("Category of product is not found", String.valueOf(HttpStatus.NOT_FOUND.value())),
 
-    PRODUCT_SUCCESS_ADDED("Product success added", String.valueOf(HttpStatus.OK.value()));
+    PRODUCT_SUCCESS_ADDED("Product success added", String.valueOf(HttpStatus.OK.value())),
+    PRODUCT_CODE_IS_EXIST("Product code can't duplicated", String.valueOf(HttpStatus.FORBIDDEN.value()));
 
     private String message;
     private String httpRes;

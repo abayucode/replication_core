@@ -8,4 +8,5 @@ import com.uph.replication.core.entities.MasterCategoryProducts;
 public interface CategoryProductService {
     ApiResult<Object> insertNewCategoryProducts(ReqInsertCategoryProduct request);
     Boolean isCategoryProductExist(String categoryName);
+    MasterCategoryProducts findByCategoryName(String categoryName);
 }
