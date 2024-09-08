@@ -11,13 +11,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping(value = APIConstants.BASE_BUSINESS_URL)
+@RequestMapping(value = APIConstants.BASE_STORE_URL)
 public class StoreController {
 
     @Autowired
     private StoreService storeService;
 
-    @PostMapping("store")
+    @PostMapping("/new")
     public ApiResult<Object> insertStore(@RequestBody ReqInsertStoreDTO reqInsertStoreDTO) {
         return storeService.insertNewStore(reqInsertStoreDTO);
     }

@@ -7,7 +7,15 @@ import org.springframework.http.HttpStatus;
 public enum ApiResultEnums {
 
     SUCCESS("Successfully", String.valueOf(HttpStatus.OK.value())),
+    SUCCESS_UPDATED("Successfully updated", String.valueOf(HttpStatus.OK.value())),
+    SUCCESS_DELETED("Successfully deleted", String.valueOf(HttpStatus.OK.value())),
+
     ERROR("Failed", String.valueOf(HttpStatus.NOT_FOUND.value())),
+    ERROR_UPDATED("Fail updated the data", String.valueOf(HttpStatus.BAD_REQUEST.value())),
+    ERROR_DELETE("Fail deleted the data", String.valueOf(HttpStatus.BAD_REQUEST.value())),
+
+    ERROR_DATA_NOT_FOUND("The data ", "", String.valueOf(HttpStatus.NOT_FOUND.value())),
+
     STORE_ADDED_SUCCESS("Store added successfully", String.valueOf(HttpStatus.OK.value())),
     STORE_ADDED_FAILED("Category of store not found", String.valueOf(HttpStatus.NOT_FOUND.value())),
 
@@ -22,9 +30,16 @@ public enum ApiResultEnums {
 
     private String message;
     private String httpRes;
+    private String data;
 
     ApiResultEnums(String message, String httpRes) {
         this.message = message;
+        this.httpRes = httpRes;
+    }
+
+    ApiResultEnums(String message, String data, String httpRes) {
+        this.message = message;
+        this.data = data;
         this.httpRes = httpRes;
     }
 }
