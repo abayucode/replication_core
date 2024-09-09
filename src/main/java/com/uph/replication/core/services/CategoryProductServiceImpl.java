@@ -41,7 +41,10 @@ public class CategoryProductServiceImpl implements CategoryProductService {
     @Override
     public Boolean isCategoryProductExist(String categoryName) {
         MasterCategoryProducts categoryProducts = categoryProductRepository.findMasterCategoryProductsByCategoryName(categoryName);
-        return null == categoryProducts;
+        if (null != categoryProducts) {
+            return categoryName.equalsIgnoreCase(categoryProducts.getCategoryName());
+        }
+        return false;
     }
 
     @Override
