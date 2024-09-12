@@ -1,7 +1,6 @@
 package com.uph.replication.core.services;
 
 import com.uph.replication.core.dto.ReqInsertCategoryProduct;
-import com.uph.replication.core.dto.ReqInsertProductDTO;
 import com.uph.replication.core.dto.responses.ApiResult;
 import com.uph.replication.core.entities.MasterCategoryProducts;
 import com.uph.replication.core.enums.ApiResultEnums;
@@ -20,12 +19,15 @@ public class CategoryProductServiceImpl implements CategoryProductService {
     @Override
     public ApiResult<Object> insertNewCategoryProducts(ReqInsertCategoryProduct request) {
         MasterCategoryProducts masterCategoryProducts = new MasterCategoryProducts();
+        List<MasterCategoryProducts> categoryProducts = categoryProductRepository.findAll();
 
-        if (!isCategoryProductExist(request.getCategoryName())) {
-            return new ApiResult<>(ApiResultEnums.CATEGORY_PRODUCT_ALREADY_EXIST, null);
+        for (MasterCategoryProducts masterCategoryProduct: categoryProducts) {
+            if (masterCategoryProduct.getCategoryName().equalsIgnoreCase(request.getCategoryName())) {
+                return new ApiResult<>(ApiResultEnums.CATEGORY_PRODUCT_ALREADY_EXIST, null);
+            }
         }
 
-        masterCategoryProducts.setCategoryName(request.getCategoryName());
+        masterCategoryProducts.setCategoryName(request.getCategoryName().toUpperCase());
         masterCategoryProducts.setCreatedAt(new Date());
         masterCategoryProducts.setUpdatedAt(new Date());
         masterCategoryProducts.setDeletedAt(null);
@@ -40,15 +42,12 @@ public class CategoryProductServiceImpl implements CategoryProductService {
 
     @Override
     public Boolean isCategoryProductExist(String categoryName) {
-        MasterCategoryProducts categoryProducts = categoryProductRepository.findMasterCategoryProductsByCategoryName(categoryName);
-        if (null != categoryProducts) {
-            return categoryName.equalsIgnoreCase(categoryProducts.getCategoryName());
-        }
-        return false;
+        MasterCategoryProducts categoryProducts = categoryProductRepository.findMasterCategoryProductsByCategoryNameContainingIgnoreCase(categoryName);
+        return categoryName.equalsIgnoreCase(categoryProducts.getCategoryName());
     }
 
     @Override
     public MasterCategoryProducts findByCategoryName(String categoryName) {
-        return categoryProductRepository.findMasterCategoryProductsByCategoryName(categoryName);
+        return categoryProductRepository.findMasterCategoryProductsByCategoryNameContainingIgnoreCase(categoryName);
     }
 }

@@ -8,5 +8,5 @@ import java.util.Optional;
 
 @Repository
 public interface CategoryProductRepository extends JpaRepository<MasterCategoryProducts, String> {
-    MasterCategoryProducts findMasterCategoryProductsByCategoryName(String categoryName);
+    MasterCategoryProducts findMasterCategoryProductsByCategoryNameContainingIgnoreCase(String categoryName);
 }
