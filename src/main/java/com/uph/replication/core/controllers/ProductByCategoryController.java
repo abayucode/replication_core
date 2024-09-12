@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController()
-@RequestMapping(value = APIConstants.BASE_PRODUCT_URL)
+@RequestMapping(value = APIConstants.B2C_BASE_PRODUCT_URL)
 public class ProductByCategoryController {
 
     @Resource

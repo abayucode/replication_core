@@ -1,14 +1,14 @@
 package com.uph.replication.core.controllers;
 
 import com.uph.replication.core.constants.APIConstants;
-import com.uph.replication.core.dto.ReqInsertUpdateCategoryStoreDTO;
-import com.uph.replication.core.dto.responses.ApiResult;
+import com.uph.replication.core.dto.requests.ReqInsertUpdateCategoryStoreDTO;
+import com.uph.replication.core.dto.ApiResult;
 import com.uph.replication.core.services.CategoryStoreService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping(APIConstants.BASE_STORE_URL)
+@RequestMapping(APIConstants.B2B_BASE_STORE_URL)
 public class CategoryStoreController {
 
     @Autowired

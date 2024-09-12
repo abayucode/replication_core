@@ -1,4 +1,4 @@
-package com.uph.replication.core.dto;
+package com.uph.replication.core.dto.requests;
 
 import lombok.Data;
 

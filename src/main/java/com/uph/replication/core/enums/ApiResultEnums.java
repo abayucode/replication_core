@@ -8,13 +8,13 @@ public enum ApiResultEnums {
 
     SUCCESS("Successfully", String.valueOf(HttpStatus.OK.value())),
     SUCCESS_UPDATED("Successfully updated", String.valueOf(HttpStatus.OK.value())),
-    SUCCESS_DELETED("Successfully deleted", String.valueOf(HttpStatus.OK.value())),
+    SUCCESS_DELETED("Successfully deleted", String.valueOf(HttpStatus.NO_CONTENT.value())),
 
     ERROR("Failed", String.valueOf(HttpStatus.NOT_FOUND.value())),
     ERROR_UPDATED("Fail updated the data", String.valueOf(HttpStatus.BAD_REQUEST.value())),
     ERROR_DELETE("Fail deleted the data", String.valueOf(HttpStatus.BAD_REQUEST.value())),
 
-    ERROR_DATA_NOT_FOUND("The data ", "", String.valueOf(HttpStatus.NOT_FOUND.value())),
+    ERROR_DATA_NOT_FOUND("Data not found", String.valueOf(HttpStatus.NOT_FOUND.value())),
 
     STORE_ADDED_SUCCESS("Store added successfully", String.valueOf(HttpStatus.OK.value())),
     STORE_ADDED_FAILED("Category of store not found", String.valueOf(HttpStatus.NOT_FOUND.value())),

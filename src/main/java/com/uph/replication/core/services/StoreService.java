@@ -1,7 +1,7 @@
 package com.uph.replication.core.services;
 
-import com.uph.replication.core.dto.ReqInsertStoreDTO;
-import com.uph.replication.core.dto.responses.ApiResult;
+import com.uph.replication.core.dto.requests.ReqInsertStoreDTO;
+import com.uph.replication.core.dto.ApiResult;
 
 public interface StoreService {
 

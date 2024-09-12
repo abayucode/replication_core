@@ -1,4 +1,4 @@
-package com.uph.replication.core.dto;
+package com.uph.replication.core.dto.requests;
 
 import com.uph.replication.core.enums.StoreEnums;
 import lombok.Data;
