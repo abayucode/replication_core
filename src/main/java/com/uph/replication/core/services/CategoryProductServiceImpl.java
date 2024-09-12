@@ -27,12 +27,12 @@ public class CategoryProductServiceImpl implements CategoryProductService {
         List<MasterCategoryProducts> categoryProducts = categoryProductRepository.findAll();
 
         for (MasterCategoryProducts masterCategoryProduct: categoryProducts) {
-            if (masterCategoryProduct.getCategoryName().equalsIgnoreCase(request.getCategoryName())) {
+            if (masterCategoryProduct.getCategoryName().equalsIgnoreCase(request.getCategoryProductName())) {
                 return new ApiResult<>(ApiResultEnums.CATEGORY_PRODUCT_ALREADY_EXIST, null);
             }
         }
 
-        masterCategoryProducts.setCategoryName(request.getCategoryName().toUpperCase());
+        masterCategoryProducts.setCategoryName(request.getCategoryProductName().toUpperCase());
         masterCategoryProducts.setCreatedAt(new Date());
         masterCategoryProducts.setUpdatedAt(new Date());
         masterCategoryProducts.setDeletedAt(null);
@@ -47,13 +47,13 @@ public class CategoryProductServiceImpl implements CategoryProductService {
 
     @Override
     public Boolean isCategoryProductExist(String categoryName) {
-        MasterCategoryProducts categoryProducts = categoryProductRepository.findMasterCategoryProductsByCategoryNameContainingIgnoreCase(categoryName);
+        MasterCategoryProducts categoryProducts = categoryProductRepository.findMasterCategoryProductsByCategoryName(categoryName);
         return categoryName.equalsIgnoreCase(categoryProducts.getCategoryName());
     }
 
     @Override
     public MasterCategoryProducts findByCategoryName(String categoryName) {
-        return categoryProductRepository.findMasterCategoryProductsByCategoryNameContainingIgnoreCase(categoryName);
+        return categoryProductRepository.findMasterCategoryProductsByCategoryName(categoryName);
     }
 
     @Override

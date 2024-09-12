@@ -17,7 +17,7 @@ public class ProductController {
     @Autowired
     private ProductService productService;
 
-    @PostMapping("/new")
+    @PostMapping
     public ApiResult<Object> insertNewProduct(@RequestBody ReqInsertProductDTO request) {
         return productService.insertNewProduct(request);
     }

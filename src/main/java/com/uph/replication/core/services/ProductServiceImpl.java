@@ -34,7 +34,7 @@ public class ProductServiceImpl implements ProductService {
         ProductsByCategories productsByCategories = new ProductsByCategories();
         MasterCategoryProducts categoryProducts = categoryProductService.findByCategoryName(reqInsertProductDTO.getProductCategory());
 
-        if (categoryProductService.isCategoryProductExist(reqInsertProductDTO.getProductCategory())) {
+        if (null == categoryProducts) {
             return new ApiResult<>(ApiResultEnums.CATEGORY_PRODUCT_IS_NOT_FOUND, null);
         }
 
