@@ -2,6 +2,7 @@ package com.uph.replication.core.services;
 
 import com.uph.replication.core.dto.requests.ReqInsertProductDTO;
 import com.uph.replication.core.dto.ApiResult;
+import com.uph.replication.core.dto.ReqRespUpdateProduct;
 import com.uph.replication.core.entities.MasterCategoryProducts;
 import com.uph.replication.core.entities.MasterProducts;
 import com.uph.replication.core.entities.ProductsByCategories;
@@ -62,5 +63,23 @@ public class ProductServiceImpl implements ProductService {
         response.put("productId", masterProducts.getId());
 
         return new ApiResult<>(ApiResultEnums.PRODUCT_SUCCESS_ADDED, response);
+    }
+
+    @Override
+    public ApiResult<ReqRespUpdateProduct> updateProduct(ReqRespUpdateProduct reqUpdateProduct) {
+        ReqRespUpdateProduct reqRespUpdateProduct = new ReqRespUpdateProduct();
+        if (productRepository.existsById(reqUpdateProduct.getProductId())) {
+            MasterProducts masterProducts = productRepository.findById(reqUpdateProduct.getProductId()).get();
+            masterProducts.setProductName(reqUpdateProduct.getProductName());
+            return new ApiResult<>(ApiResultEnums.SUCCESS_UPDATED, reqRespUpdateProduct);
+        }
+
+        return new ApiResult<>(ApiResultEnums.ERROR_UPDATED, reqRespUpdateProduct);
+    }
+
+    @Override
+    public Boolean isSameData(ReqRespUpdateProduct reqRespUpdateProduct, MasterProducts masterProducts) {
+
+        return null;
     }
 }
