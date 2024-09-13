@@ -1,10 +1,12 @@
 package com.uph.replication.core.entities;
 
 import com.uph.replication.core.constants.EntityConstants;
+import com.uph.replication.core.enums.UnitSizeEnums;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
 
@@ -21,6 +23,10 @@ public class MasterProducts {
     private Integer productQuantity;
     private Date productExpired;
     private String productCode;
+    private BigDecimal productPrice;
+    private String productDescription;
+    private Double productSize;
+    private UnitSizeEnums productUnitSize;
     private Date createdAt;
     private Date deletedAt;
     private Date updatedAt;

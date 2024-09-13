@@ -8,5 +8,4 @@ import com.uph.replication.core.entities.MasterProducts;
 public interface ProductService {
     ApiResult<Object> insertNewProduct(ReqInsertProductDTO reqInsertProductDTO);
     ApiResult<ReqRespUpdateProduct> updateProduct(ReqRespUpdateProduct reqRespUpdateProduct);
-    Boolean isSameData(ReqRespUpdateProduct reqRespUpdateProduct, MasterProducts masterProducts);
 }

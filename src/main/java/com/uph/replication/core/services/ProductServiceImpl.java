@@ -48,8 +48,12 @@ public class ProductServiceImpl implements ProductService {
 
         masterProducts.setProductName(reqInsertProductDTO.getProductName());
         masterProducts.setProductCode(reqInsertProductDTO.getProductCode());
-        masterProducts.setProductQuantity(reqInsertProductDTO.getStock());
+        masterProducts.setProductQuantity(reqInsertProductDTO.getProductQuantity());
         masterProducts.setProductExpired(reqInsertProductDTO.getProductExpiryDate());
+        masterProducts.setProductDescription(reqInsertProductDTO.getProductDescription());
+        masterProducts.setProductSize(reqInsertProductDTO.getProductSize());
+        masterProducts.setProductUnitSize(reqInsertProductDTO.getProductUnitSize());
+        masterProducts.setProductPrice(reqInsertProductDTO.getProductPrice());
         masterProducts.setCreatedAt(new Date());
         masterProducts.setUpdatedAt(new Date());
         masterProducts.setDeletedAt(null);
@@ -68,18 +72,23 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public ApiResult<ReqRespUpdateProduct> updateProduct(ReqRespUpdateProduct reqUpdateProduct) {
         ReqRespUpdateProduct reqRespUpdateProduct = new ReqRespUpdateProduct();
-        if (productRepository.existsById(reqUpdateProduct.getProductId())) {
-            MasterProducts masterProducts = productRepository.findById(reqUpdateProduct.getProductId()).get();
+        if (productRepository.findByProductCode(reqUpdateProduct.getProductCode()).isPresent()) {
+            MasterProducts masterProducts = productRepository.findByProductCode(reqUpdateProduct.getProductCode()).get();
             masterProducts.setProductName(reqUpdateProduct.getProductName());
+            masterProducts.setProductQuantity(reqUpdateProduct.getProductQuantity());
+            masterProducts.setProductDescription(reqUpdateProduct.getProductDescription());
+            masterProducts.setProductPrice(reqUpdateProduct.getProductPrice());
+            masterProducts.setUpdatedAt(new Date());
+            productRepository.save(masterProducts);
+
+            reqRespUpdateProduct.setProductCode(masterProducts.getProductCode());
+            reqRespUpdateProduct.setProductName(masterProducts.getProductName());
+            reqRespUpdateProduct.setProductQuantity(masterProducts.getProductQuantity());
+            reqRespUpdateProduct.setProductPrice(masterProducts.getProductPrice());
+            reqRespUpdateProduct.setProductDescription(masterProducts.getProductDescription());
             return new ApiResult<>(ApiResultEnums.SUCCESS_UPDATED, reqRespUpdateProduct);
         }
 
         return new ApiResult<>(ApiResultEnums.ERROR_UPDATED, reqRespUpdateProduct);
-    }
-
-    @Override
-    public Boolean isSameData(ReqRespUpdateProduct reqRespUpdateProduct, MasterProducts masterProducts) {
-
-        return null;
     }
 }
