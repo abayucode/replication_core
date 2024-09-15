@@ -1,10 +1,7 @@
 package com.uph.replication.core.entities;
 
 import com.uph.replication.core.constants.EntityConstants;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
+import jakarta.persistence.*;
 import lombok.Data;
 
 import java.util.Date;
@@ -14,6 +11,7 @@ import java.util.Date;
 public class SetProductsStore {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.UUID)
     private String id;
 
     @ManyToOne

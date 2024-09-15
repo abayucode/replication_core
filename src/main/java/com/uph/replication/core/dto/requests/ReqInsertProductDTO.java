@@ -17,4 +17,5 @@ public class ReqInsertProductDTO {
     private Double productSize;
     private UnitSizeEnums productUnitSize;
     private BigDecimal productPrice;
+    private String storeId;
 }

@@ -3,12 +3,9 @@ package com.uph.replication.core.services;
 import com.uph.replication.core.dto.requests.ReqInsertProductDTO;
 import com.uph.replication.core.dto.ApiResult;
 import com.uph.replication.core.dto.ReqRespUpdateProduct;
-import com.uph.replication.core.entities.MasterCategoryProducts;
-import com.uph.replication.core.entities.MasterProducts;
-import com.uph.replication.core.entities.ProductsByCategories;
+import com.uph.replication.core.entities.*;
 import com.uph.replication.core.enums.ApiResultEnums;
-import com.uph.replication.core.repositories.ProductByCategoryRepository;
-import com.uph.replication.core.repositories.ProductRepository;
+import com.uph.replication.core.repositories.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -29,11 +26,25 @@ public class ProductServiceImpl implements ProductService {
     @Autowired
     private ProductByCategoryRepository productByCategoryRepository;
 
+    @Autowired
+    private SetProductStoreRepository setProductStoreRepository;
+
+    @Autowired
+    private StoreByCategoryRepository storeByCategoryRepository;
+
+    @Autowired
+    private StoreRepository storeRepository;
+
     @Override
     public ApiResult<Object> insertNewProduct(ReqInsertProductDTO reqInsertProductDTO) {
         MasterProducts masterProducts = new MasterProducts();
-        ProductsByCategories productsByCategories = new ProductsByCategories();
         MasterCategoryProducts categoryProducts = categoryProductService.findByCategoryName(reqInsertProductDTO.getProductCategory());
+
+        MasterStores masterStores = storeRepository.findById(reqInsertProductDTO.getStoreId()).get();
+        ProductsByCategories productsByCategories = new ProductsByCategories();
+        StoresByCategories storesByCategories = storeByCategoryRepository.findByStores(masterStores);
+
+        SetProductsStore setProductsStore = new SetProductsStore();
 
         if (null == categoryProducts) {
             return new ApiResult<>(ApiResultEnums.CATEGORY_PRODUCT_IS_NOT_FOUND, null);
@@ -46,6 +57,9 @@ public class ProductServiceImpl implements ProductService {
             }
         }
 
+        /*
+        * save into mst_products table
+        * */
         masterProducts.setProductName(reqInsertProductDTO.getProductName());
         masterProducts.setProductCode(reqInsertProductDTO.getProductCode());
         masterProducts.setProductQuantity(reqInsertProductDTO.getProductQuantity());
@@ -59,9 +73,26 @@ public class ProductServiceImpl implements ProductService {
         masterProducts.setDeletedAt(null);
 
         productRepository.save(masterProducts);
+
+
+        /*
+        * save into tbl_product_by_category table
+        * */
         productsByCategories.setProducts(masterProducts);
         productsByCategories.setCategoryProducts(categoryProducts);
+
         productByCategoryRepository.save(productsByCategories);
+
+
+        /*
+        * save into tbl_set_products_stores table
+        * */
+        setProductsStore.setProductsByCategories(productsByCategories);
+        setProductsStore.setStoresByCategories(storesByCategories);
+        setProductsStore.setCreatedAt(new Date());
+        setProductsStore.setUpdatedAt(new Date());
+        setProductStoreRepository.save(setProductsStore);
+
 
         Map<String, String> response = new HashMap<>();
         response.put("productId", masterProducts.getId());
