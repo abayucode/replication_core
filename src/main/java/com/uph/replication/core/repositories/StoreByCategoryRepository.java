@@ -1,5 +1,6 @@
 package com.uph.replication.core.repositories;
 
+import com.uph.replication.core.entities.MasterCategoryStore;
 import com.uph.replication.core.entities.MasterStores;
 import com.uph.replication.core.entities.StoresByCategories;
 import org.springframework.data.jpa.repository.JpaRepository;

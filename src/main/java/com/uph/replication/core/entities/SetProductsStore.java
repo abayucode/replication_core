@@ -1,5 +1,6 @@
 package com.uph.replication.core.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.uph.replication.core.constants.EntityConstants;
 import jakarta.persistence.*;
 import lombok.Data;

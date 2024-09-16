@@ -1,5 +1,6 @@
 package com.uph.replication.core.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.uph.replication.core.constants.EntityConstants;
 import jakarta.persistence.*;
 import lombok.Data;
@@ -23,5 +24,6 @@ public class StoresByCategories {
     private MasterCategoryStore categoryStore;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = EntityConstants.STORE_BY_CATEGORIES, cascade = CascadeType.ALL)
+    @JsonIgnore
     private List<SetProductsStore> setProductsStores;
 }
