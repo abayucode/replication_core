@@ -11,6 +11,9 @@ public class WebConfig implements WebMvcConfigurer {
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(new RequestInterceptor())
-                .addPathPatterns(APIConstants.B2B_BASE_BUSINESS_URL.concat("*"));
+                .addPathPatterns(APIConstants.B2B_BASE_BUSINESS_URL.concat("*"))
+                .addPathPatterns(APIConstants.B2B_BASE_STORE_URL.concat("*"))
+                .addPathPatterns(APIConstants.B2B_BASE_PRODUCT_URL.concat("*"))
+                .addPathPatterns(APIConstants.B2B_BASE_CATEGORY_PRODUCT_URL.concat("*"));
     }
 }

@@ -2,19 +2,21 @@ package com.uph.replication.core.services;
 
 import com.uph.replication.core.dto.requests.ReqInsertStoreDTO;
 import com.uph.replication.core.dto.ApiResult;
-import com.uph.replication.core.dto.responses.ReqRespUpdateStore;
+import com.uph.replication.core.dto.ReqRespUpdateStore;
 import com.uph.replication.core.entities.MasterCategoryStore;
 import com.uph.replication.core.entities.MasterStores;
 import com.uph.replication.core.enums.ApiResultEnums;
 import com.uph.replication.core.repositories.StoreRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.validation.annotation.Validated;
 
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
 @Service
+@Validated
 public class StoreServiceImpl implements StoreService {
 
     @Autowired
