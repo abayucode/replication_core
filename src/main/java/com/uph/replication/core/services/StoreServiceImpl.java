@@ -2,6 +2,7 @@ package com.uph.replication.core.services;
 
 import com.uph.replication.core.dto.requests.ReqInsertStoreDTO;
 import com.uph.replication.core.dto.ApiResult;
+import com.uph.replication.core.dto.responses.ReqRespUpdateStore;
 import com.uph.replication.core.entities.MasterCategoryStore;
 import com.uph.replication.core.entities.MasterStores;
 import com.uph.replication.core.enums.ApiResultEnums;
@@ -59,5 +60,32 @@ public class StoreServiceImpl implements StoreService {
     @Override
     public Boolean isStoreExist(String storeCode) {
         return storeRepository.findMasterStoresByStoreCode(storeCode).isPresent();
+    }
+
+    @Override
+    public ApiResult<ReqRespUpdateStore> updateStore(ReqRespUpdateStore reqRespUpdateStore) {
+        ReqRespUpdateStore reqUpdateStore = new ReqRespUpdateStore();
+        try {
+            MasterStores stores = storeRepository.findMasterStoresByStoreCode(reqRespUpdateStore.getStoreCode()).get();
+            stores.setStoreName(reqRespUpdateStore.getStoreName());
+            stores.setStoreAddress(reqRespUpdateStore.getStoreAddress());
+            stores.setLatitude(reqRespUpdateStore.getLatitude());
+            stores.setLongitude(reqRespUpdateStore.getLongitude());
+            stores.setUpdatedAt(new Date());
+
+            storeRepository.save(stores);
+
+            reqUpdateStore.setStoreName(stores.getStoreName());
+            reqUpdateStore.setStoreCode(stores.getStoreCode());
+            reqUpdateStore.setLatitude(stores.getLatitude());
+            reqUpdateStore.setLongitude(stores.getLongitude());
+            reqUpdateStore.setStoreAddress(stores.getStoreAddress());
+            reqUpdateStore.setStoreIsActive(stores.getStoreIsActive());
+
+
+            return new ApiResult<>(ApiResultEnums.SUCCESS_UPDATED, reqUpdateStore);
+        } catch (Exception e) {
+            return new ApiResult<>(ApiResultEnums.ERROR_UPDATED, reqRespUpdateStore);
+        }
     }
 }

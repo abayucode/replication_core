@@ -28,7 +28,8 @@ public enum ApiResultEnums {
     PRODUCT_SUCCESS_ADDED("Product success added", String.valueOf(HttpStatus.OK.value())),
     PRODUCT_CODE_IS_EXIST("Product code can't duplicated", String.valueOf(HttpStatus.FORBIDDEN.value())),
 
-    PRODUCT_STORE_SUCCESS_DISPLAYED("Successfully display product", String.valueOf(HttpStatus.OK.value()));
+    PRODUCT_STORE_SUCCESS_DISPLAYED("Successfully display product", String.valueOf(HttpStatus.OK.value())),
+    PRODUCT_STORE_NOT_FOUND("Products is not found", String.valueOf(HttpStatus.NOT_FOUND.value()));
 
     private String message;
     private String httpRes;

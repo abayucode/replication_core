@@ -34,31 +34,38 @@ public class DisplayProductServiceImpl implements DisplayProductStoreService {
     @Override
     public ApiResult<List<RespDisplayProductsDTO>> displayProducts(ReqSearchProduct keyword) {
         List<RespDisplayProductsDTO> displayLists = new ArrayList<>();
-
         List<MasterProducts> allProduct = productRepository.findAllByProductNameContainsIgnoreCase(keyword.getValue());
 
-        for (MasterProducts product : allProduct) {
-            RespDisplayProductsDTO displayProductsDTO = new RespDisplayProductsDTO();
-            ProductsByCategories productsByCategory = productByCategoryRepository.findAllByProducts(product);
-            SetProductsStore setProductsStore = setProductStoreRepository
-                    .findSetProductsStoreByProductsByCategories(productsByCategory);
-            StoresByCategories storesByCategories = storeByCategoryRepository
-                    .findByStores(setProductsStore.getStoresByCategories().getStores());
-            MasterStores masterStores = storeRepository.findById(storesByCategories.getStores().getId()).get();
+        try {
+            for (MasterProducts product : allProduct) {
+                RespDisplayProductsDTO displayProductsDTO = new RespDisplayProductsDTO();
+                ProductsByCategories productsByCategory = productByCategoryRepository.findAllByProducts(product);
+                if (productsByCategory != null) {
+                    SetProductsStore setProductsStore = setProductStoreRepository
+                            .findSetProductsStoreByProductsByCategories(productsByCategory);
+                    if (setProductsStore != null) {
+                        StoresByCategories storesByCategories = storeByCategoryRepository
+                                .findByStores(setProductsStore.getStoresByCategories().getStores());
+                        MasterStores masterStores = storeRepository.findById(storesByCategories.getStores().getId()).get();
+                        displayProductsDTO.setProductName(product.getProductName());
+                        displayProductsDTO.setProductQuantity(product.getProductQuantity());
+                        displayProductsDTO.setProductDescription(product.getProductDescription());
+                        displayProductsDTO.setProductPrice(product.getProductPrice());
+                        displayProductsDTO.setStoreName(masterStores.getStoreName());
+                        displayProductsDTO.setLongitude(masterStores.getLongitude());
+                        displayProductsDTO.setLatitude(masterStores.getLatitude());
+                        displayProductsDTO.setExpired(product.getProductExpired());
 
-            displayProductsDTO.setProductName(product.getProductName());
-            displayProductsDTO.setProductQuantity(product.getProductQuantity());
-            displayProductsDTO.setProductDescription(product.getProductDescription());
-            displayProductsDTO.setProductPrice(product.getProductPrice());
-            displayProductsDTO.setStoreName(masterStores.getStoreName());
-            displayProductsDTO.setLongitude(masterStores.getLongitude());
-            displayProductsDTO.setLatitude(masterStores.getLatitude());
-            displayProductsDTO.setExpired(product.getProductExpired());
+                        displayLists.add(displayProductsDTO);
+                    }
 
-            displayLists.add(displayProductsDTO);
+                }
+            }
+
+            return new ApiResult<>(ApiResultEnums.PRODUCT_STORE_SUCCESS_DISPLAYED, displayLists);
+        } catch (Exception e) {
+            return new ApiResult<>(ApiResultEnums.PRODUCT_STORE_NOT_FOUND, displayLists);
         }
-
-        return new ApiResult<>(ApiResultEnums.PRODUCT_STORE_SUCCESS_DISPLAYED, displayLists);
     }
 
     @Override
