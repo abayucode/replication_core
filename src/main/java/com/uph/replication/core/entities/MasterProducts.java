@@ -27,6 +27,7 @@ public class MasterProducts {
     private String productDescription;
     private Double productSize;
     private UnitSizeEnums productUnitSize;
+    private String productImage;
     private Date createdAt;
     private Date deletedAt;
     private Date updatedAt;

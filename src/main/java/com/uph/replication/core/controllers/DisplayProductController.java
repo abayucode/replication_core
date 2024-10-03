@@ -1,5 +1,6 @@
 package com.uph.replication.core.controllers;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.uph.replication.core.constants.APIConstants;
 import com.uph.replication.core.dto.ApiResult;
 import com.uph.replication.core.dto.requests.ReqSearchProduct;
@@ -14,6 +15,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping(APIConstants.B2C_BASE_PRODUCT_URL)
+@CrossOrigin
 public class DisplayProductController {
 
     @Autowired
