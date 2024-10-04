@@ -12,4 +12,5 @@ public class ReqInsertStoreDTO {
     private String storeCategory;
     private String latitude;
     private String longitude;
+    private String linkLocation;
 }

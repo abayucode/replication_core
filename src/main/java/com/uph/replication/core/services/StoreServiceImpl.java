@@ -47,6 +47,7 @@ public class StoreServiceImpl implements StoreService {
             masterStores.setStoreIsActive(reqInsertStoreDTO.getStoreIsActive());
             masterStores.setLatitude(reqInsertStoreDTO.getLatitude());
             masterStores.setLongitude(reqInsertStoreDTO.getLongitude());
+            masterStores.setLinkLocation(reqInsertStoreDTO.getLinkLocation());
             masterStores.setCreatedAt(new Date());
             masterStores.setUpdatedAt(new Date());
 
