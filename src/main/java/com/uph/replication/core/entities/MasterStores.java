@@ -23,6 +23,7 @@ public class MasterStores {
     private String storeCode;
     private String latitude;
     private String longitude;
+    private String linkLocation;
     private Date createdAt;
     private Date deletedAt;
     private Date updatedAt;

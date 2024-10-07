@@ -15,4 +15,5 @@ public class RespDisplayProductsDTO {
     private String latitude;
     private String longitude;
     private Date expired;
+    private String productImageUrl;
 }

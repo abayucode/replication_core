@@ -6,6 +6,7 @@ import com.uph.replication.core.dto.responses.RespDisplayProductsDTO;
 import com.uph.replication.core.entities.*;
 import com.uph.replication.core.enums.ApiResultEnums;
 import com.uph.replication.core.repositories.*;
+import com.uph.replication.core.utils.JSONUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -55,11 +56,15 @@ public class DisplayProductServiceImpl implements DisplayProductStoreService {
                         displayProductsDTO.setLongitude(masterStores.getLongitude());
                         displayProductsDTO.setLatitude(masterStores.getLatitude());
                         displayProductsDTO.setExpired(product.getProductExpired());
+                        displayProductsDTO.setProductImageUrl(product.getProductImage());
 
                         displayLists.add(displayProductsDTO);
                     }
-
                 }
+            }
+
+            if (displayLists.isEmpty()) {
+                return new ApiResult<>(ApiResultEnums.PRODUCT_STORE_NOT_FOUND, displayLists);
             }
 
             return new ApiResult<>(ApiResultEnums.PRODUCT_STORE_SUCCESS_DISPLAYED, displayLists);

@@ -5,6 +5,7 @@ import com.uph.replication.core.constants.InterceptorRespConstants;
 import com.uph.replication.core.dto.ApiResult;
 import com.uph.replication.core.enums.ApiResultEnums;
 import com.uph.replication.core.services.StoreService;
+import com.uph.replication.core.services.StoreServiceImpl;
 import com.uph.replication.core.utils.JSONUtils;
 import com.uph.replication.core.utils.StrUtils;
 import jakarta.servlet.http.HttpServletRequest;
@@ -20,7 +21,7 @@ import java.util.Objects;
 public class RequestInterceptor implements HandlerInterceptor {
 
     @Autowired
-    private StoreService storeService;
+    private StoreServiceImpl storeService;
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
