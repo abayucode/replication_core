@@ -6,6 +6,7 @@ import com.uph.replication.core.dto.ReqRespUpdateProduct;
 import com.uph.replication.core.entities.*;
 import com.uph.replication.core.enums.ApiResultEnums;
 import com.uph.replication.core.repositories.*;
+import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -34,6 +35,9 @@ public class ProductServiceImpl implements ProductService {
 
     @Autowired
     private StoreRepository storeRepository;
+
+    @Autowired
+    private RabbitTemplate rabbitTemplate;
 
     @Override
     public ApiResult<Object> insertNewProduct(ReqInsertProductDTO reqInsertProductDTO) {
@@ -103,6 +107,7 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public ApiResult<ReqRespUpdateProduct> updateProduct(ReqRespUpdateProduct reqUpdateProduct) {
         ReqRespUpdateProduct reqRespUpdateProduct = new ReqRespUpdateProduct();
+
         if (productRepository.findByProductCode(reqUpdateProduct.getProductCode()).isPresent()) {
             MasterProducts masterProducts = productRepository.findByProductCode(reqUpdateProduct.getProductCode()).get();
             masterProducts.setProductName(reqUpdateProduct.getProductName());
